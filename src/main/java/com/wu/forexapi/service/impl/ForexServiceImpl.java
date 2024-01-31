@@ -18,4 +18,9 @@ public class ForexServiceImpl implements ForexService{
 	public void save(List<Forex> forex) {
 		forexRepository.saveAll(forex);
 	}
+
+	@Override
+	public Forex[] findByDate(String startDate, String endDate) {
+		return forexRepository.findByDate(startDate, endDate);
+	}
 }

@@ -6,6 +6,10 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.data.annotation.Id;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,24 +17,38 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Forex {
 
 	@Id
-	@JsonProperty("Date")
-	private String date;
+	@JsonIgnore
+	private String id;
 	
-	@JsonProperty("USD/NTD")
+	@JsonAlias("Date")
+	@JsonProperty("date")
+	@JsonFormat(pattern="yyyyMMdd")
+	private LocalDate date;
+	
+	@JsonAlias("USD/NTD")
+	@JsonProperty("usd")
 	private String usdToNtd;
 
 	public Forex() {
 		super();
 	}
 
-	public String getDate() {
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
-		LocalDate localDate  = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyyMMdd"));
-		LocalDateTime localDateTime = localDate.atStartOfDay();
-		this.date = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+	public void setDate(LocalDate date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		this.id = date.atStartOfDay().format(formatter);
+		this.date = date;
 	}
 
 	public String getUsdToNtd() {

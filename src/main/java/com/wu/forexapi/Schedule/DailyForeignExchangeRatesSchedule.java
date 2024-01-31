@@ -1,4 +1,4 @@
-package com.wu.forexapi.Schedule;
+package com.wu.forexapi.schedule;
 
 import java.io.IOException;
 

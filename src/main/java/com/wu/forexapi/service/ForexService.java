@@ -7,4 +7,6 @@ import com.wu.forexapi.model.Forex;
 public interface ForexService {
 
 	public void save(List<Forex> forex);
+	
+	public Forex[] findByDate(String startDate, String endDate);
 }
